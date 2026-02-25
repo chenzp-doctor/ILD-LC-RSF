@@ -51,7 +51,7 @@ LDH = st.number_input("乳酸脱氢酶（LDH）", min_value=0, max_value=1000, v
 Ddimer = st.number_input("D二聚体（D-dimer）", min_value=0, max_value=1000, value=0)
 
 # 处理输入数据并进行预测
-feature_values = ["xmqc", "stage", "surgery", "LDH", "Ddimer"]  # 将用户输入得特征值存入列表
+feature_values = np.array([xmqc, stage, surgery, LDH, Ddimer]).reshape(1, -1) # 将用户输入得特征值存入列表
 
 
 # 加载 scaler
