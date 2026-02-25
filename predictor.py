@@ -34,7 +34,7 @@ feature_names = [
 st.title("肺癌合并间质性肺炎生存预测器")  # 设置网页标题
 
 # 胸闷气喘：分类选择框
-xmqc = st.selectbox("胸闷气喘（0：无；1：有）", options=[0, 1],
+xmqc = st.selectbox("胸闷气喘", options=[0, 1],
                          format_func=lambda x: "无" if x == 1 else "有")
 
 # 分期：分类选择框
