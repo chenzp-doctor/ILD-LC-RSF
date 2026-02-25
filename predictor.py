@@ -58,9 +58,15 @@ features = np.array([xmqc, stage, surgery, LDH, Ddimer]).reshape(1, -1) # 将用
 scaler = StandardScaler()
 train_data_scaled = pd.read_csv("train_data_notscaled.csv",index_col=0)
 continuous_vars = [ 'LDH', 'Ddimer']
+continuous_indices = [3,4]
 train_data_scaled[continuous_vars] = scaler.fit(train_data_scaled[continuous_vars])
-features[continuous_vars] = scaler.transform(features[continuous_vars])
 
+# 对输入特征中的连续变量进行标准化
+features_cont = features[:, continuous_indices]
+features_cont_scaled = scaler.transform(features_cont)
+
+# 替换原来的连续变量值
+features[:, continuous_indices] = features_cont_scaled
 
 # 当用户点击“Predict”按钮时执行以下代码
 if st.button("Predict"):
