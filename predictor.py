@@ -52,16 +52,17 @@ Ddimer = st.number_input("D二聚体（D-dimer）", min_value=0, max_value=1000,
 
 # 处理输入数据并进行预测
 feature_values = ["xmqc", "stage", "surgery", "LDH", "Ddimer"]  # 将用户输入得特征值存入列表
-features_scaled = scaler.transform(features_values)
+
 
 # 加载 scaler
 scaler = StandardScaler()
 train_data_notscaled = pd.read_csv("train_data_notscaled.csv",index_col=0)
 train_data_scaled = scaler.fit(train_data_notscaled)
-features = scaler.transform(features)
-# 当用户点击“Predict”按钮时执行以下代码
+features = scaler.transform(feature_values)
 
-if st.button("Predict") :
+
+# 当用户点击“Predict”按钮时执行以下代码
+if st.button("Predict"):
     # 预测生存函数（返回每个时间点的生存概率）
     func = model.predict_survival_function(features)
     try:
