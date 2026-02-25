@@ -70,21 +70,28 @@ features[:, continuous_indices] = features_cont_scaled
 
 # 当用户点击“Predict”按钮时执行以下代码
 if st.button("Predict"):
-    # 预测生存函数（返回每个时间点的生存概率）
+    # 预测生存函数
     func = model.predict_survival_function(features)
-    try:
-        median_time = func.x[np.argmax(func.y <= 0.5)]
+    func = func[0]  # 取第一个样本的生存函数
+
+    # 计算中位生存时间
+    thresholds = np.where(func.y <= 0.5)[0]
+    if len(thresholds) > 0:
+        median_time = func.x[thresholds[0]]
         st.write(f"该患者的中位生存时间: {median_time:.2f} 天")
-    except:
+    else:
         st.write("无法计算中位生存时间（生存概率未降至 0.5 以下）")
+
     # 绘制生存曲线
     st.subheader("患者的生存曲线")
     fig, ax = plt.subplots()
-    ax.step(func.x, func.y, where="post")
+    ax.step(func.x, func.y, where="post", label="Survival Function")
     ax.set_xlabel("时间 (天)")
     ax.set_ylabel("生存概率")
     ax.set_title("生存函数曲线 (Survival Curve)")
     ax.grid(True)
+    ax.set_ylim(0, 1.05)
+    ax.legend()
 
     # 在 Streamlit 中显示图表
     st.pyplot(fig)
