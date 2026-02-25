@@ -1,8 +1,8 @@
 # 导入Stremalit库，用于构建web应用
 import streamlit as st
 
-# 导入joblib库，用于加载和保存机器学习模型
-import joblib
+# 导入pickle库，用于加载和保存机器学习模型
+import pickle
 
 # 导入Numpy库，用于数值计算
 import numpy as np
@@ -13,7 +13,11 @@ import pandas as pd
 # 导入Matplotlib库，用于数据可视化
 import matplotlib.pyplot as plt
 
-model = joblib.load("RSF.pkl")
+#
+from sklearn.preprocessing import StandardScaler
+
+with open("RSF.pkl", "rb") as f:
+    model = pickle.load(f)
 
 # 从x_test.csv文件加载测试数据
 # X_test = pd.read_csv("X_test.csv")
@@ -47,20 +51,19 @@ LDH = st.number_input("乳酸脱氢酶（LDH）", min_value=0, max_value=1000, v
 Ddimer = st.number_input("D二聚体（D-dimer）", min_value=0, max_value=1000, value=0)
 
 # 处理输入数据并进行预测
-feature_values = ["xmqc", "stage", "surgery",
-                  "LDH", "Ddimer"]  # 将用户输入得特征值存入列表
-features = np.array([feature_values])
+feature_values = ["xmqc", "stage", "surgery", "LDH", "Ddimer"]  # 将用户输入得特征值存入列表
+features_scaled = scaler.transform(features_values)
 
 # 加载 scaler
 scaler = StandardScaler()
-train_data_scaled = pd.read_csv("train_data_notscaled.csv",index_col=0)
-train_data_scaled = scaler.fit_transform(train_data_notscale)
+train_data_notscaled = pd.read_csv("train_data_notscaled.csv",index_col=0)
+train_data_scaled = scaler.fit(train_data_notscaled)
 features = scaler.transform(features)
 # 当用户点击“Predict”按钮时执行以下代码
 
 if st.button("Predict") :
     # 预测生存函数（返回每个时间点的生存概率）
-    func = survgb_model.predict_survival_function(features)
+    func = model.predict_survival_function(features)
     try:
         median_time = func.x[np.argmax(func.y <= 0.5)]
         st.write(f"该患者的中位生存时间: {median_time:.2f} 天")
