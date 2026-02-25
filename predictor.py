@@ -10,9 +10,6 @@ import numpy as np
 # 导入Pandas库，用于数据处理和操作
 import pandas as pd
 
-# 导入SHAP库，用于解释机器学习模型的预测
-import shap
-
 # 导入Matplotlib库，用于数据可视化
 import matplotlib.pyplot as plt
 
@@ -55,8 +52,9 @@ feature_values = ["xmqc", "stage", "surgery",
 features = np.array([feature_values])
 
 # 加载 scaler
-import joblib
-scaler = joblib.load('scaler.pkl')
+scaler = StandardScaler()
+train_data_scaled = pd.read_csv("train_data_notscaled.csv",index_col=0)
+train_data_scaled = scaler.fit_transform(train_data_notscale)
 features = scaler.transform(features)
 # 当用户点击“Predict”按钮时执行以下代码
 
