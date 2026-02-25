@@ -83,12 +83,12 @@ if st.button("Predict"):
         st.write("无法计算中位生存时间（生存概率未降至 0.5 以下）")
 
     # 绘制生存曲线
-    st.subheader("患者的生存曲线")
+    st.subheader("该患者的生存曲线如下：")
     fig, ax = plt.subplots()
     ax.step(func.x, func.y, where="post", label="Survival Function")
-    ax.set_xlabel("时间 (天)")
-    ax.set_ylabel("生存概率")
-    ax.set_title("生存函数曲线 (Survival Curve)")
+    ax.set_xlabel("Time(Days)")
+    ax.set_ylabel("Survival Probability")
+    ax.set_title("Survival Curve")
     ax.grid(True)
     ax.set_ylim(0, 1.05)
     ax.legend()
