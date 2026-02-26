@@ -41,14 +41,14 @@ xmqc = st.selectbox("胸闷气喘", options=[0, 1],
 stage = st.selectbox("分期", options=[1, 2, 3, 4])
 
 # 手术：分类选择框
-surgery = st.selectbox("手术", options=[0, 1],
-                       format_func=lambda x: "无" if x == 1 else "有")
+surgery = st.selectbox("手术治疗", options=[0, 1],
+                       format_func=lambda x: "否" if x == 1 else "是")
 
 # 乳酸脱氢酶
-LDH = st.number_input("乳酸脱氢酶（LDH）", min_value=0, max_value=1000, value=0)
+LDH = st.number_input("乳酸脱氢酶（LDH U/L）", min_value=0, max_value=1000, value=0)
 
 # 乳酸脱氢酶
-Ddimer = st.number_input("D二聚体（D-dimer）", min_value=0, max_value=1000, value=0)
+Ddimer = st.number_input("D二聚体（D-dimer mg/L）", min_value=0, max_value=1000, value=0)
 
 # 处理输入数据并进行预测
 features = np.array([xmqc, stage, surgery, LDH, Ddimer]).reshape(1, -1) # 将用户输入得特征值存入列表
