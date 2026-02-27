@@ -31,7 +31,7 @@ feature_names = [
 ]
 
 # Streamlit 用户界面
-st.title("肺癌合并间质性肺炎生存预测器")  # 设置网页标题
+st.title("非小细胞细胞肺癌合并间质性肺疾病生存预测器")  # 设置网页标题
 
 # 胸闷气喘：分类选择框
 xmqc = st.selectbox("胸闷气喘", options=[0, 1],
