@@ -48,8 +48,8 @@ surgery = st.selectbox("手术治疗", options=[0, 1],
 LDH = st.number_input("乳酸脱氢酶（U/L）", min_value=0, max_value=1000, value=0)
 
 # D二聚体
-Ddimer = st.number_input("D二聚体（mg/L）", min_value=0, max_value=1000,
-                         value=0.0, step=0.01)
+Ddimer = st.number_input("D二聚体（mg/L）", min_value=0.00,
+                         max_value=1000.00, value=0.00, step=0.01)
 
 # 处理输入数据并进行预测
 features = np.array([xmqc, stage, surgery, LDH, Ddimer]).reshape(1, -1) # 将用户输入得特征值存入列表
