@@ -35,14 +35,14 @@ st.title("肺癌合并间质性肺炎生存预测器")  # 设置网页标题
 
 # 胸闷气喘：分类选择框
 xmqc = st.selectbox("胸闷气喘", options=[0, 1],
-                         format_func=lambda x: "无" if x == 1 else "有")
+                         format_func=lambda x: "有" if x == 1 else "无")
 
 # 分期：分类选择框
 stage = st.selectbox("分期", options=[1, 2, 3, 4])
 
 # 手术：分类选择框
 surgery = st.selectbox("手术治疗", options=[0, 1],
-                       format_func=lambda x: "否" if x == 1 else "是")
+                       format_func=lambda x: "是" if x == 1 else "否")
 
 # 乳酸脱氢酶
 LDH = st.number_input("乳酸脱氢酶（U/L）", min_value=0, max_value=1000, value=0)
